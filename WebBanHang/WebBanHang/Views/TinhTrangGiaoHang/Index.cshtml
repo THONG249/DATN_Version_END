@@ -1,0 +1,78 @@
+﻿@model List<WebBanHang.Context.Order>
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="row btn-primary"  height: 70px; color:white; text-align:center;margin: 50px 50px;">
+    <h5 style="text-align: center; margin: 0 auto; line-height: 70px">Tình trạng giao hàng</h5>
+</div>
+
+<p>  @ViewBag.Tb</p>
+<table class="table table-bordered">
+    <tr>
+        <th>
+            Đơn hàng
+        </th>
+        <th>
+            Ngày đặt
+        </th>
+        <th>
+            Ngày giao
+        </th>
+        <th>
+            Trạng thái
+        </th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+
+        if (item.NgayGiaHang != null)
+        {
+            <tr>
+                <td>
+                    @item.Name
+                </td>
+                <td>
+                    @item.CreatedOnUtc
+                </td>
+                <td>
+                    @item.NgayGiaHang
+                </td>
+                <td>
+                    @if (item.Status == 1)
+                    {
+                        <p> Chưa nhận hàng</p>
+                    }
+                    else
+                    {
+                        <p>Đã nhận hàng</p>
+                    }
+                </td>
+                <td>
+                    <button type="button" class="btn btn-info">
+                        @Html.ActionLink("Xác nhận đơn hàng", "Edit", new { id = item.Id })
+                    </button>
+                </td>
+            </tr>
+
+        }
+        else
+        {
+            <tr>
+                <td>
+                    @item.Name
+
+                </td>
+                <td>
+                    @item.CreatedOnUtc
+                </td>
+                <td>
+                    Chưa xác nhận
+                </td>
+            </tr>
+        }
+    }
+</table>
+
